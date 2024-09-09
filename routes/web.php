@@ -20,5 +20,24 @@ Route::get('/', function () {
 
 Route::group(['namespace' => 'App\Http\Controllers\Post'], function () {
     Route::get('/posts', 'IndexController')->name('post.index');
-    Route::get('/posts/create', 'CreateController')->name('post.create');
+    Route::get('/posts/{post}', 'ShowController')->name('post.show');
+});
+
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
+    Route::get('/about', 'AboutController')->name('about.index');
+    Route::get('/contact', 'ContactController')->name('contact.index');
+});
+
+
+Route::group(['namespace' => 'App\Http\Controllers\Admin','prefix' => 'admin', 'middleware' => 'admin'], function (){
+    Route::get('/', 'IndexController')->name('admin.index');
+    /*Route::group(['namespace' => 'Post'], function (){
+        Route::get('/post', 'IndexController')->name('admin.post.index');
+        Route::get('/posts/create', 'CreateController')->name('admin.post.create');
+        Route::post('/posts', 'StoreController')->name('admin.post.store');
+        Route::get('/posts/{post}', 'ShowController')->name('admin.post.show');
+        Route::get('/posts/{post}/edit', 'EditController')->name('admin.post.edit');
+        Route::patch('/posts/{post}', 'UpdateController')->name('admin.post.update');
+        Route::delete('/posts/{post}', 'DeleteController')->name('admin.post.delete');
+    });*/
 });
